@@ -46,10 +46,10 @@ public class AboutActivity extends MBaseActivity {
     TextView tvVersion;
     @BindView(R.id.vw_version)
     CardView vwVersion;
-    @BindView(R.id.tv_donate)
-    TextView tvDonate;
-    @BindView(R.id.vw_donate)
-    CardView vwDonate;
+//    @BindView(R.id.tv_donate)
+//    TextView tvDonate;
+//    @BindView(R.id.vw_donate)
+//    CardView vwDonate;
     @BindView(R.id.tv_scoring)
     TextView tvScoring;
     @BindView(R.id.vw_scoring)
@@ -135,7 +135,7 @@ public class AboutActivity extends MBaseActivity {
 
     @Override
     protected void bindEvent() {
-        vwDonate.setOnClickListener(view -> DonateActivity.startThis(this));
+//        vwDonate.setOnClickListener(view -> DonateActivity.startThis(this));
         vwScoring.setOnClickListener(view -> openIntent(Intent.ACTION_VIEW, "market://details?id=" + getPackageName()));
         vwMail.setOnClickListener(view -> openIntent(Intent.ACTION_SENDTO, "mailto:kunfei.ge@gmail.com"));
         vwGit.setOnClickListener(view -> openIntent(Intent.ACTION_VIEW, getString(R.string.this_github_url)));

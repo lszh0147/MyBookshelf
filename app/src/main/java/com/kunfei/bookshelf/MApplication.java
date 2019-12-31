@@ -41,7 +41,7 @@ public class MApplication extends Application {
     private static String versionName;
     private static int versionCode;
     private SharedPreferences configPreferences;
-    private boolean donateHb;
+//    private boolean donateHb;
 
     public static MApplication getInstance() {
         return instance;
@@ -87,7 +87,7 @@ public class MApplication extends Application {
         AppFrontBackHelper.getInstance().register(this, new AppFrontBackHelper.OnAppStatusListener() {
             @Override
             public void onFront() {
-                donateHb = System.currentTimeMillis() - configPreferences.getLong("DonateHb", 0) <= TimeUnit.DAYS.toMillis(30);
+//                donateHb = System.currentTimeMillis() - configPreferences.getLong("DonateHb", 0) <= TimeUnit.DAYS.toMillis(30);
             }
 
             @Override
@@ -154,16 +154,16 @@ public class MApplication extends Application {
         return getInstance().configPreferences;
     }
 
-    public boolean getDonateHb() {
-        return donateHb || BuildConfig.DEBUG;
-    }
+//    public boolean getDonateHb() {
+//        return donateHb || BuildConfig.DEBUG;
+//    }
 
-    public void upDonateHb() {
-        configPreferences.edit()
-                .putLong("DonateHb", System.currentTimeMillis())
-                .apply();
-        donateHb = true;
-    }
+//    public void upDonateHb() {
+//        configPreferences.edit()
+//                .putLong("DonateHb", System.currentTimeMillis())
+//                .apply();
+//        donateHb = true;
+//    }
 
     public void upEInkMode() {
         MApplication.isEInkMode = configPreferences.getBoolean("E-InkMode", false);
