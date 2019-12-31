@@ -633,7 +633,7 @@ public class MainActivity extends BaseTabActivity<MainContract.Presenter> implem
                     .putInt("versionCode", MApplication.getVersionCode())
                     .apply();
             //更新日志
-            moDialogHUD.showAssetMarkdown("updateLog.md");
+//            moDialogHUD.showAssetMarkdown("updateLog.md");
         }
     }
 
