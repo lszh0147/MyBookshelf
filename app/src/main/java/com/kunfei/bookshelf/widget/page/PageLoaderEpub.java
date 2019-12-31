@@ -19,7 +19,9 @@ import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -106,7 +108,7 @@ public class PageLoaderEpub extends PageLoader {
                     MediatypeService.MP3,
                     MediatypeService.MP4};
 
-            return epubReader.readEpubLazy(file.getAbsolutePath(), "utf-8", Arrays.asList(lazyTypes));
+            return epubReader.readEpub(new FileInputStream(file),"utf-8");
         } catch (Exception e) {
             return null;
         }

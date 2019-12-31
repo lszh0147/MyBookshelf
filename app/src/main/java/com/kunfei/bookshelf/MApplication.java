@@ -17,7 +17,7 @@ import androidx.multidex.MultiDex;
 
 import com.kunfei.bookshelf.constant.AppConstant;
 import com.kunfei.bookshelf.help.AppFrontBackHelper;
-import com.kunfei.bookshelf.help.CrashHandler;
+//import com.kunfei.bookshelf.help.CrashHandler;
 import com.kunfei.bookshelf.help.FileHelp;
 import com.kunfei.bookshelf.model.UpLastChapterModel;
 import com.kunfei.bookshelf.utils.theme.ThemeStore;
@@ -63,7 +63,7 @@ public class MApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-        CrashHandler.getInstance().init(this);
+//        CrashHandler.getInstance().init(this);
         RxJavaPlugins.setErrorHandler(Functions.emptyConsumer());
         try {
             versionCode = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;

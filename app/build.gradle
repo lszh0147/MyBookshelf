@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 apply plugin: 'org.greenrobot.greendao'
-apply plugin: 'io.fabric'
+//apply plugin: 'io.fabric'
 apply plugin: "de.timfreiheit.resourceplaceholders"
 
 static def releaseTime() {
@@ -83,8 +83,8 @@ dependencies {
     implementation "org.jetbrains.anko:anko-sdk27-listeners:$anko_version"
 
     //fireBase
-    implementation 'com.google.firebase:firebase-core:17.2.1'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+//    implementation 'com.google.firebase:firebase-core:17.2.1'
+//    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
     //androidX
     implementation 'androidx.multidex:multidex:2.0.1'
@@ -141,10 +141,10 @@ dependencies {
     implementation 'ru.noties.markwon:core:3.0.2'
 
     //epub
-    implementation('nl.siegmann.epublib:epublib-core:3.1') {
-        exclude group: 'org.slf4j'
-        exclude group: 'xmlpull'
-    }
+//    implementation('nl.siegmann.epublib:epublib-core:3.1') {
+//        exclude group: 'org.slf4j'
+//        exclude group: 'xmlpull'
+//    }
 
 }
 
@@ -154,7 +154,7 @@ greendao {
     targetGenDir 'src/main/java'
 }
 
-apply plugin: 'com.google.gms.google-services'
-repositories {
-    mavenCentral()
-}
+//apply plugin: 'com.google.gms.google-services'
+//repositories {
+//    mavenCentral()
+//}
