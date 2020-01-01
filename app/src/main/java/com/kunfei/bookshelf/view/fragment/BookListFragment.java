@@ -102,7 +102,7 @@ public class BookListFragment extends MBaseFragment<BookListContract.Presenter> 
     @Override
     protected void initData() {
         callbackValue = (CallbackValue) getActivity();
-        bookPx = preferences.getString(getString(R.string.pk_bookshelf_px), "0");
+        bookPx = preferences.getString(getString(R.string.pk_bookshelf_px), "2");
         isRecreate = callbackValue != null && callbackValue.isRecreate();
     }
 
