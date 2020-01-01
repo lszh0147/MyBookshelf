@@ -118,14 +118,14 @@ public class MApplication extends Application {
     public void upThemeStore() {
         if (isNightTheme()) {
             ThemeStore.editTheme(this)
-                    .primaryColor(configPreferences.getInt("colorPrimaryNight", getResources().getColor(R.color.md_grey_800)))
-                    .accentColor(configPreferences.getInt("colorAccentNight", getResources().getColor(R.color.md_pink_800)))
-                    .backgroundColor(configPreferences.getInt("colorBackgroundNight", getResources().getColor(R.color.md_grey_800)))
+                    .primaryColor(configPreferences.getInt("colorPrimaryNight", getResources().getColor(R.color.nitht_2)))
+                    .accentColor(configPreferences.getInt("colorAccentNight", getResources().getColor(R.color.nitht_1)))
+                    .backgroundColor(configPreferences.getInt("colorBackgroundNight", getResources().getColor(R.color.nitht_3)))
                     .apply();
         } else {
             ThemeStore.editTheme(this)
-                    .primaryColor(configPreferences.getInt("colorPrimary", getResources().getColor(R.color.md_grey_100)))
-                    .accentColor(configPreferences.getInt("colorAccent", getResources().getColor(R.color.md_pink_600)))
+                    .primaryColor(configPreferences.getInt("colorPrimary", getResources().getColor(R.color.day_1)))
+                    .accentColor(configPreferences.getInt("colorAccent", getResources().getColor(R.color.day_2)))
                     .backgroundColor(configPreferences.getInt("colorBackground", getResources().getColor(R.color.md_grey_100)))
                     .apply();
         }

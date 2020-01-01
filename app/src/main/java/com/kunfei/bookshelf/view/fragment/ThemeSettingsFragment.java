@@ -152,12 +152,12 @@ public class ThemeSettingsFragment extends PreferenceFragment implements SharedP
                     .setMessage("是否确认恢复？")
                     .setPositiveButton(R.string.ok, (dialog, which) -> {
                         settingActivity.preferences.edit()
-                                .putInt("colorPrimary", settingActivity.getResources().getColor(R.color.md_grey_100))
-                                .putInt("colorAccent", settingActivity.getResources().getColor(R.color.md_pink_600))
+                                .putInt("colorPrimary", settingActivity.getResources().getColor(R.color.day_1))
+                                .putInt("colorAccent", settingActivity.getResources().getColor(R.color.day_2))
                                 .putInt("colorBackground", settingActivity.getResources().getColor(R.color.md_grey_100))
-                                .putInt("colorPrimaryNight", settingActivity.getResources().getColor(R.color.md_grey_800))
-                                .putInt("colorAccentNight", settingActivity.getResources().getColor(R.color.md_pink_800))
-                                .putInt("colorBackgroundNight", settingActivity.getResources().getColor(R.color.md_grey_800))
+                                .putInt("colorPrimaryNight", settingActivity.getResources().getColor(R.color.nitht_2))
+                                .putInt("colorAccentNight", settingActivity.getResources().getColor(R.color.nitht_1))
+                                .putInt("colorBackgroundNight", settingActivity.getResources().getColor(R.color.nitht_3))
                                 .apply();
                         MApplication.getInstance().upThemeStore();
                         RxBus.get().post(RxBusTag.RECREATE, true);

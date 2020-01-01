@@ -19,7 +19,7 @@
 
     <color name="highlight">#d3321b</color>
 
-    <color name="btn_bg_press">#80C0C0C0</color>
+    <color name="btn_bg_press">#dddddd</color>
     <color name="btn_bg_press_2">#80858585</color>
     <color name="btn_bg_press_tp">#88000000</color>
 
@@ -100,7 +100,7 @@
 
 
     <color name="day_1">#111111</color>
-    <color name="day_2">#0091EA</color>
+    <color name="day_2">#1c22f1</color>
 
     <color name="nitht_1">#eabf3d</color>
     <color name="nitht_2">#262626</color>
