@@ -42,8 +42,8 @@ public class ReadBottomMenu extends FrameLayout {
     TextView tvNext;
     @BindView(R.id.ll_catalog)
     LinearLayout llCatalog;
-    @BindView(R.id.ll_adjust)
-    LinearLayout llAdjust;
+//    @BindView(R.id.ll_adjust)
+//    LinearLayout llAdjust;
     @BindView(R.id.ll_font)
     LinearLayout llFont;
     @BindView(R.id.ll_setting)
@@ -157,7 +157,7 @@ public class ReadBottomMenu extends FrameLayout {
         llCatalog.setOnClickListener(view -> callback.openChapterList());
 
         //调节
-        llAdjust.setOnClickListener(view -> callback.openAdjust());
+//        llAdjust.setOnClickListener(view -> callback.openAdjust());
 
         //界面
         llFont.setOnClickListener(view -> callback.openReadInterface());

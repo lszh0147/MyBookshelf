@@ -75,7 +75,7 @@ import com.kunfei.bookshelf.view.popupwindow.CheckAddShelfPop;
 import com.kunfei.bookshelf.view.popupwindow.MediaPlayerPop;
 import com.kunfei.bookshelf.view.popupwindow.MoreSettingPop;
 import com.kunfei.bookshelf.view.popupwindow.ReadAdjustMarginPop;
-import com.kunfei.bookshelf.view.popupwindow.ReadAdjustPop;
+//import com.kunfei.bookshelf.view.popupwindow.ReadAdjustPop;
 import com.kunfei.bookshelf.view.popupwindow.ReadBottomMenu;
 import com.kunfei.bookshelf.view.popupwindow.ReadInterfacePop;
 import com.kunfei.bookshelf.view.popupwindow.ReadLongPressPop;
@@ -130,8 +130,8 @@ public class ReadBookActivity extends MBaseActivity<ReadBookContract.Presenter> 
     LinearLayout llISB;
     @BindView(R.id.pageView)
     PageView pageView;
-    @BindView(R.id.readAdjustPop)
-    ReadAdjustPop readAdjustPop;
+//    @BindView(R.id.readAdjustPop)
+//    ReadAdjustPop readAdjustPop;
     @BindView(R.id.readAdjustMarginPop)
     ReadAdjustMarginPop readAdjustMarginPop;
     @BindView(R.id.readInterfacePop)
@@ -290,7 +290,7 @@ public class ReadBookActivity extends MBaseActivity<ReadBookContract.Presenter> 
         }
         int barColorType = readBookControl.getNavBarColor();
         if (readBottomMenu.getVisibility() == View.VISIBLE
-                || readAdjustPop.getVisibility() == View.VISIBLE
+//                || readAdjustPop.getVisibility() == View.VISIBLE
                 || readInterfacePop.getVisibility() == View.VISIBLE
                 || readAdjustMarginPop.getVisibility() == View.VISIBLE
                 || moreSettingPop.getVisibility() == View.VISIBLE) {
@@ -454,7 +454,7 @@ public class ReadBookActivity extends MBaseActivity<ReadBookContract.Presenter> 
                 flMenu.setVisibility(View.INVISIBLE);
                 llMenuTop.setVisibility(View.INVISIBLE);
                 readBottomMenu.setVisibility(View.INVISIBLE);
-                readAdjustPop.setVisibility(View.INVISIBLE);
+//                readAdjustPop.setVisibility(View.INVISIBLE);
                 readAdjustMarginPop.setVisibility(View.INVISIBLE);
                 readInterfacePop.setVisibility(View.INVISIBLE);
                 moreSettingPop.setVisibility(View.INVISIBLE);
@@ -479,7 +479,7 @@ public class ReadBookActivity extends MBaseActivity<ReadBookContract.Presenter> 
                 flMenu.setVisibility(View.INVISIBLE);
                 llMenuTop.setVisibility(View.INVISIBLE);
                 readBottomMenu.setVisibility(View.INVISIBLE);
-                readAdjustPop.setVisibility(View.INVISIBLE);
+//                readAdjustPop.setVisibility(View.INVISIBLE);
                 readAdjustMarginPop.setVisibility(View.INVISIBLE);
                 readInterfacePop.setVisibility(View.INVISIBLE);
                 moreSettingPop.setVisibility(View.INVISIBLE);
@@ -512,7 +512,7 @@ public class ReadBookActivity extends MBaseActivity<ReadBookContract.Presenter> 
         moDialogHUD = new MoDialogHUD(this);
         initBottomMenu();
         initReadInterfacePop();
-        initReadAdjustPop();
+//        initReadAdjustPop();
         initReadAdjustMarginPop();
         initMoreSettingPop();
         initMediaPlayer();
@@ -639,24 +639,24 @@ public class ReadBookActivity extends MBaseActivity<ReadBookContract.Presenter> 
     /**
      * 初始化调节
      */
-    private void initReadAdjustPop() {
-        readAdjustPop.setListener(this, new ReadAdjustPop.Callback() {
-            @Override
-            public void speechRateFollowSys() {
-                if (ReadAloudService.running) {
-                    ReadAloudService.stop(ReadBookActivity.this);
-                }
-            }
-
-            @Override
-            public void changeSpeechRate(int speechRate) {
-                if (ReadAloudService.running) {
-                    ReadAloudService.pause(ReadBookActivity.this);
-                    ReadAloudService.resume(ReadBookActivity.this);
-                }
-            }
-        });
-    }
+//    private void initReadAdjustPop() {
+//        readAdjustPop.setListener(this, new ReadAdjustPop.Callback() {
+//            @Override
+//            public void speechRateFollowSys() {
+//                if (ReadAloudService.running) {
+//                    ReadAloudService.stop(ReadBookActivity.this);
+//                }
+//            }
+//
+//            @Override
+//            public void changeSpeechRate(int speechRate) {
+//                if (ReadAloudService.running) {
+//                    ReadAloudService.pause(ReadBookActivity.this);
+//                    ReadAloudService.resume(ReadBookActivity.this);
+//                }
+//            }
+//        });
+//    }
 
     /**
      * 初始化调节
@@ -731,6 +731,22 @@ public class ReadBookActivity extends MBaseActivity<ReadBookContract.Presenter> 
                     mPageLoader.refreshUi();
                 }
             }
+
+            @Override
+            public void changeSpeechRate(int speechRate) {
+                if (ReadAloudService.running) {
+                    ReadAloudService.pause(ReadBookActivity.this);
+                    ReadAloudService.resume(ReadBookActivity.this);
+                }
+            }
+
+            @Override
+            public void speechRateFollowSys() {
+                if (ReadAloudService.running) {
+                    ReadAloudService.stop(ReadBookActivity.this);
+                }
+            }
+
 
         });
     }
@@ -1412,10 +1428,10 @@ public class ReadBookActivity extends MBaseActivity<ReadBookContract.Presenter> 
      * 显示调节
      */
     private void readAdjustIn() {
-        flMenu.setVisibility(View.VISIBLE);
-        readAdjustPop.show();
-        readAdjustPop.setVisibility(View.VISIBLE);
-        readAdjustPop.startAnimation(menuBottomIn);
+//        flMenu.setVisibility(View.VISIBLE);
+//        readAdjustPop.show();
+//        readAdjustPop.setVisibility(View.VISIBLE);
+//        readAdjustPop.startAnimation(menuBottomIn);
     }
 
     /**
@@ -1472,9 +1488,9 @@ public class ReadBookActivity extends MBaseActivity<ReadBookContract.Presenter> 
             if (moreSettingPop.getVisibility() == View.VISIBLE) {
                 moreSettingPop.startAnimation(menuBottomOut);
             }
-            if (readAdjustPop.getVisibility() == View.VISIBLE) {
-                readAdjustPop.startAnimation(menuBottomOut);
-            }
+//            if (readAdjustPop.getVisibility() == View.VISIBLE) {
+//                readAdjustPop.startAnimation(menuBottomOut);
+//            }
             if (readInterfacePop.getVisibility() == View.VISIBLE) {
                 readInterfacePop.startAnimation(menuBottomOut);
             }
@@ -1648,7 +1664,7 @@ public class ReadBookActivity extends MBaseActivity<ReadBookContract.Presenter> 
         } else {
             if (keyCode == KeyEvent.KEYCODE_BACK) {
                 if (readInterfacePop.getVisibility() == View.VISIBLE
-                        || readAdjustPop.getVisibility() == View.VISIBLE
+//                        || readAdjustPop.getVisibility() == View.VISIBLE
                         || readAdjustMarginPop.getVisibility() == View.VISIBLE
                         || moreSettingPop.getVisibility() == View.VISIBLE) {
                     popMenuOut();

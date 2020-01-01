@@ -7,8 +7,11 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +24,7 @@ import com.kunfei.bookshelf.help.permission.PermissionsCompat;
 import com.kunfei.bookshelf.utils.theme.ATH;
 import com.kunfei.bookshelf.view.activity.ReadBookActivity;
 import com.kunfei.bookshelf.view.activity.ReadStyleActivity;
+import com.kunfei.bookshelf.widget.check_box.SmoothCheckBox;
 import com.kunfei.bookshelf.widget.font.FontSelector;
 import com.kunfei.bookshelf.widget.page.animation.PageAnimation;
 
@@ -30,6 +34,26 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import kotlin.Unit;
 
 public class ReadInterfacePop extends FrameLayout {
+
+    @BindView(R.id.hpb_light)
+    SeekBar hpbLight;
+    @BindView(R.id.scb_follow_sys)
+    SmoothCheckBox scbFollowSys;
+    @BindView(R.id.ll_follow_sys)
+    LinearLayout llFollowSys;
+    @BindView(R.id.ll_click)
+    LinearLayout llClick;
+    @BindView(R.id.hpb_click)
+    SeekBar hpbClick;
+    @BindView(R.id.ll_tts_SpeechRate)
+    LinearLayout llTtsSpeechRate;
+    @BindView(R.id.hpb_tts_SpeechRate)
+    SeekBar hpbTtsSpeechRate;
+    @BindView(R.id.scb_tts_follow_sys)
+    SmoothCheckBox scbTtsFollowSys;
+    @BindView(R.id.tv_auto_page)
+    TextView tvAutoPage;
+
     @BindView(R.id.vw_bg)
     View vwBg;
     @BindView(R.id.fl_text_Bold)
@@ -82,6 +106,31 @@ public class ReadInterfacePop extends FrameLayout {
     private ReadBookControl readBookControl = ReadBookControl.getInstance();
     private Callback callback;
 
+
+    public void show() {
+        initLight();
+    }
+
+    public void initLight() {
+        hpbLight.setProgress(readBookControl.getLight());
+        scbFollowSys.setChecked(readBookControl.getLightFollowSys());
+        if (!readBookControl.getLightFollowSys()) {
+            setScreenBrightness(readBookControl.getLight());
+        }
+    }
+    public void setScreenBrightness(int value) {
+        if (value < 1) value = 1;
+        WindowManager.LayoutParams params = (activity).getWindow().getAttributes();
+        params.screenBrightness = value * 1.0f / 255f;
+        (activity).getWindow().setAttributes(params);
+    }
+
+    public void setScreenBrightness() {
+        WindowManager.LayoutParams params = (activity).getWindow().getAttributes();
+        params.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
+        (activity).getWindow().setAttributes(params);
+    }
+
     public ReadInterfacePop(Context context) {
         super(context);
         init(context);
@@ -108,6 +157,7 @@ public class ReadInterfacePop extends FrameLayout {
         this.callback = callback;
         initData();
         bindEvent();
+        initLight();
     }
 
     private void initData() {
@@ -116,7 +166,20 @@ public class ReadInterfacePop extends FrameLayout {
         updateBoldText(readBookControl.getTextBold());
         updatePageMode(readBookControl.getPageMode());
 
-        nbTextSize.setText(String.format("%d", readBookControl.getTextSize()));    }
+        nbTextSize.setText(String.format("%d", readBookControl.getTextSize()));
+
+        scbTtsFollowSys.setChecked(readBookControl.isSpeechRateFollowSys());
+        if (readBookControl.isSpeechRateFollowSys()) {
+            hpbTtsSpeechRate.setEnabled(false);
+        } else {
+            hpbTtsSpeechRate.setEnabled(true);
+        }
+        //CPM范围设置 每分钟阅读200字到2000字 默认500字/分钟
+        hpbClick.setMax(readBookControl.maxCPM - readBookControl.minCPM);
+        hpbClick.setProgress(readBookControl.getCPM());
+        tvAutoPage.setText(String.format("%sCPM", readBookControl.getCPM()));
+        hpbTtsSpeechRate.setProgress(readBookControl.getSpeechRate() - 5);
+    }
 
     /**
      * 控件事件
@@ -260,6 +323,110 @@ public class ReadInterfacePop extends FrameLayout {
             activity.toast(R.string.clear_font);
             return true;
         });
+
+        //亮度调节
+        llFollowSys.setOnClickListener(v -> {
+            if (scbFollowSys.isChecked()) {
+                scbFollowSys.setChecked(false, true);
+            } else {
+                scbFollowSys.setChecked(true, true);
+            }
+        });
+        scbFollowSys.setOnCheckedChangeListener((checkBox, isChecked) -> {
+            readBookControl.setLightFollowSys(isChecked);
+            if (isChecked) {
+                //跟随系统
+                hpbLight.setEnabled(false);
+                setScreenBrightness();
+            } else {
+                //不跟随系统
+                hpbLight.setEnabled(true);
+                setScreenBrightness(readBookControl.getLight());
+            }
+        });
+        hpbLight.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if (!readBookControl.getLightFollowSys()) {
+                    readBookControl.setLight(i);
+                    setScreenBrightness(i);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        //自动翻页阅读速度(CPM)
+        hpbClick.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                tvAutoPage.setText(String.format("%sCPM", i + readBookControl.minCPM));
+                readBookControl.setCPM(i + readBookControl.minCPM);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        //朗读语速调节
+        llTtsSpeechRate.setOnClickListener(v -> {
+            if (scbTtsFollowSys.isChecked()) {
+                scbTtsFollowSys.setChecked(false, true);
+            } else {
+                scbTtsFollowSys.setChecked(true, true);
+            }
+        });
+        scbTtsFollowSys.setOnCheckedChangeListener((checkBox, isChecked) -> {
+            if (isChecked) {
+                //跟随系统
+                hpbTtsSpeechRate.setEnabled(false);
+                readBookControl.setSpeechRateFollowSys(true);
+                if (callback != null) {
+                    callback.speechRateFollowSys();
+                }
+            } else {
+                //不跟随系统
+                hpbTtsSpeechRate.setEnabled(true);
+                readBookControl.setSpeechRateFollowSys(false);
+                if (callback != null) {
+                    callback.changeSpeechRate(readBookControl.getSpeechRate());
+                }
+            }
+        });
+        hpbTtsSpeechRate.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                readBookControl.setSpeechRate(seekBar.getProgress() + 5);
+                if (callback != null) {
+                    callback.changeSpeechRate(readBookControl.getSpeechRate());
+                }
+            }
+        });
     }
 
     //自定义阅读样式
@@ -339,6 +506,11 @@ public class ReadInterfacePop extends FrameLayout {
         void bgChange();
 
         void refresh();
+
+        void changeSpeechRate(int speechRate);
+
+        void speechRateFollowSys();
     }
+
 
 }
