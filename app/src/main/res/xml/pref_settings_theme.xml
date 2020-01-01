@@ -12,13 +12,13 @@
         app:icons="@array/icons" />
 
     <com.kunfei.bookshelf.widget.prefs.ATESwitchPreference
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:key="immersionStatusBar"
         android:summary="@string/status_bar_immersion"
         android:title="@string/immersion_status_bar" />
 
     <com.kunfei.bookshelf.widget.prefs.ATESwitchPreference
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:key="navigationBarColorChange"
         android:summary="@string/navigation_bar_color_change_s"
         android:title="@string/navigation_bar_color_change" />

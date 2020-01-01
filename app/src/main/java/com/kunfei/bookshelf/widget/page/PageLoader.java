@@ -49,7 +49,7 @@ public abstract class PageLoader {
 
     // 默认的显示参数配置
     private static final int DEFAULT_MARGIN_HEIGHT = 20;
-    public static final int DEFAULT_MARGIN_WIDTH = 15;
+    public static final int DEFAULT_MARGIN_WIDTH = 13;
     private static final int DEFAULT_TIP_SIZE = 12;
     private static final float MAX_SCROLL_OFFSET = 100;
     private static final int TIP_ALPHA = 180;

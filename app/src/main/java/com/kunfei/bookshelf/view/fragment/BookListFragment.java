@@ -110,7 +110,7 @@ public class BookListFragment extends MBaseFragment<BookListContract.Presenter> 
     protected void bindView() {
         super.bindView();
         unbinder = ButterKnife.bind(this, view);
-        int bookshelfLayout = preferences.getInt("bookshelfLayout", 0);
+        int bookshelfLayout = preferences.getInt("bookshelfLayout", 1);
         if (bookshelfLayout == 0) {
             rvBookshelf.setLayoutManager(new LinearLayoutManager(getContext()));
             bookShelfAdapter = new BookShelfListAdapter(getActivity());

@@ -1944,25 +1944,26 @@ public class ReadBookActivity extends MBaseActivity<ReadBookContract.Presenter> 
     }
 
     /**
-     * 结束
+     * 结束,默认不加入书架
      */
     @Override
     public void finish() {
-        if (!checkAddShelf()) {
-            return;
-        }
-        if (!AppActivityManager.getInstance().isExist(MainActivity.class)) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        }
-        new PermissionsCompat.Builder(this)
-                .addPermissions(Permissions.READ_EXTERNAL_STORAGE, Permissions.WRITE_EXTERNAL_STORAGE)
-                .rationale("自动备份需要存储权限")
-                .onGranted((requestCode) -> {
-                    RxBus.get().post(RxBusTag.AUTO_BACKUP, true);
-                    return Unit.INSTANCE;
-                })
-                .request();
+
+//        if (!checkAddShelf()) {
+//            return;
+//        }
+//        if (!AppActivityManager.getInstance().isExist(MainActivity.class)) {
+//            Intent intent = new Intent(this, MainActivity.class);
+//            startActivity(intent);
+//        }
+//        new PermissionsCompat.Builder(this)
+//                .addPermissions(Permissions.READ_EXTERNAL_STORAGE, Permissions.WRITE_EXTERNAL_STORAGE)
+//                .rationale("自动备份需要存储权限")
+//                .onGranted((requestCode) -> {
+//                    RxBus.get().post(RxBusTag.AUTO_BACKUP, true);
+//                    return Unit.INSTANCE;
+//                })
+//                .request();
         super.finish();
     }
 

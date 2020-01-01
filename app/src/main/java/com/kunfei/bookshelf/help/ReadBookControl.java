@@ -95,7 +95,7 @@ public class ReadBookControl {
         this.hideStatusBar = preferences.getBoolean("hide_status_bar", false);
         this.hideNavigationBar = preferences.getBoolean("hide_navigation_bar", false);
         this.indent = preferences.getInt("indent", 2);
-        this.textSize = preferences.getInt("textSize", 20);
+        this.textSize = preferences.getInt("textSize", 34);
         this.canClickTurn = preferences.getBoolean("canClickTurn", true);
         this.canKeyTurn = preferences.getBoolean("canKeyTurn", true);
         this.readAloudCanKeyTurn = preferences.getBoolean("readAloudCanKeyTurn", false);
@@ -114,9 +114,9 @@ public class ReadBookControl {
         this.showLine = preferences.getBoolean("showLine", true);
         this.screenTimeOut = preferences.getInt("screenTimeOut", 0);
         this.paddingLeft = preferences.getInt("paddingLeft", DEFAULT_MARGIN_WIDTH);
-        this.paddingTop = preferences.getInt("paddingTop", 0);
+        this.paddingTop = preferences.getInt("paddingTop", 5);
         this.paddingRight = preferences.getInt("paddingRight", DEFAULT_MARGIN_WIDTH);
-        this.paddingBottom = preferences.getInt("paddingBottom", 0);
+        this.paddingBottom = preferences.getInt("paddingBottom", 5);
         this.tipPaddingLeft = preferences.getInt("tipPaddingLeft", DEFAULT_MARGIN_WIDTH);
         this.tipPaddingTop = preferences.getInt("tipPaddingTop", 0);
         this.tipPaddingRight = preferences.getInt("tipPaddingRight", DEFAULT_MARGIN_WIDTH);
