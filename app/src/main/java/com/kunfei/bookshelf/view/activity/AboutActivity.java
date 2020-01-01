@@ -137,7 +137,7 @@ public class AboutActivity extends MBaseActivity {
     protected void bindEvent() {
 //        vwDonate.setOnClickListener(view -> DonateActivity.startThis(this));
         vwScoring.setOnClickListener(view -> openIntent(Intent.ACTION_VIEW, "market://details?id=" + getPackageName()));
-        vwMail.setOnClickListener(view -> openIntent(Intent.ACTION_SENDTO, "mailto:kunfei.ge@gmail.com"));
+        vwMail.setOnClickListener(view -> openIntent(Intent.ACTION_SENDTO, "mailto:lszh001@outlook.com"));
         vwGit.setOnClickListener(view -> openIntent(Intent.ACTION_VIEW, getString(R.string.this_github_url)));
         vwDisclaimer.setOnClickListener(view -> moDialogHUD.showAssetMarkdown("disclaimer.md"));
         vwUpdate.setOnClickListener(view -> openIntent(Intent.ACTION_VIEW, getString(R.string.latest_release_url)));
