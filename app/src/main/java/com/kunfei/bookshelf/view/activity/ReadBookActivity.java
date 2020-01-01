@@ -990,6 +990,26 @@ public class ReadBookActivity extends MBaseActivity<ReadBookContract.Presenter> 
                     showAction(cursorLeft);
                 }
             }
+
+            @Override
+            public void turnBright() {
+                int light = readBookControl.getLight();
+                if (light < 255){
+                    light ++;
+                    readInterfacePop.setScreenBrightness(light);
+                    readBookControl.setLight(light);
+                }
+            }
+
+            @Override
+            public void turnDark() {
+                int light = readBookControl.getLight();
+                if (light >= 1) {
+                    light--;
+                    readInterfacePop.setScreenBrightness(light);
+                    readBookControl.setLight(light);
+                }
+            }
         });
         mPageLoader.refreshChapterList();
     }
@@ -1451,6 +1471,7 @@ public class ReadBookActivity extends MBaseActivity<ReadBookContract.Presenter> 
         flMenu.setVisibility(View.VISIBLE);
         readInterfacePop.setVisibility(View.VISIBLE);
         readInterfacePop.startAnimation(menuBottomIn);
+        readInterfacePop.initLight();
     }
 
     /**

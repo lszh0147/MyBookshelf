@@ -470,6 +470,12 @@ public class PageView extends View implements PageAnimation.OnPageChangeListener
         super.computeScroll();
     }
 
+    //记录Y轴
+    float lastY = 0;
+
+    //边缘距离，
+    float leftWidth = 60;
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -491,6 +497,9 @@ public class PageView extends View implements PageAnimation.OnPageChangeListener
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                //记录Y轴
+                lastY = event.getY();
+
                 mPageAnim.initTouch(x, y);
                 if (event.getEdgeFlags() != 0 || event.getRawY() < ScreenUtils.dpToPx(5) || event.getRawY() > getDisplayMetrics().heightPixels - ScreenUtils.dpToPx(5)) {
                     actionFromEdge = true;
@@ -516,23 +525,38 @@ public class PageView extends View implements PageAnimation.OnPageChangeListener
 
                 break;
             case MotionEvent.ACTION_MOVE:
-                mPageAnim.initTouch(x, y);
-                // 判断是否大于最小滑动值。
-                int slop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
-                if (!isMove) {
-                    isMove = Math.abs(mStartX - event.getX()) > slop || Math.abs(mStartY - event.getY()) > slop;
-                }
+                //判定是否处于边缘侧滑
+                if (event.getX() < leftWidth || (mViewWidth - event.getX()) < leftWidth) {
 
-                // 如果滑动了,且不是长按，则进行翻页。
-                if (isMove) {
-                    if (readBookControl.isCanSelectText()) {
-                        removeCallbacks(mLongPressRunnable);
+                    if (event.getY() < lastY && (lastY -event.getY()) >3) {
+                        //调亮
+                        mTouchListener.turnBright();
+                    } else if (event.getY() > lastY && (event.getY() - lastY) >3){
+                        //调暗
+                        mTouchListener.turnDark();
                     }
-                    mPageAnim.onTouchEvent(event);
+                    //记录Y轴
+                    lastY = event.getY();
+                } else {
+                    mPageAnim.initTouch(x, y);
+                    // 判断是否大于最小滑动值。
+                    int slop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+                    if (!isMove) {
+                        isMove = Math.abs(mStartX - event.getX()) > slop || Math.abs(mStartY - event.getY()) > slop;
+                    }
+
+                    // 如果滑动了,且不是长按，则进行翻页。
+                    if (isMove) {
+                        if (readBookControl.isCanSelectText()) {
+                            removeCallbacks(mLongPressRunnable);
+                        }
+                        mPageAnim.onTouchEvent(event);
+                    }
                 }
                 break;
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
+                lastY = 0;
                 mPageAnim.initTouch(x, y);
                 mPageAnim.setTouchInitFalse();
                 if (!isMove) {
@@ -705,5 +729,9 @@ public class PageView extends View implements PageAnimation.OnPageChangeListener
         void onLongPress();
 
         void center();
+
+        void turnBright();
+
+        void turnDark();
     }
 }
