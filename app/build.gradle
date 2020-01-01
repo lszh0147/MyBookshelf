@@ -10,7 +10,7 @@ static def releaseTime() {
 }
 
 def name = "YueDu"
-def version = "2." + releaseTime()
+def version = "9." + releaseTime()
 def gitCommits = Integer.parseInt('git rev-list --count HEAD'.execute([], project.rootDir).text.trim())
 
 android {
