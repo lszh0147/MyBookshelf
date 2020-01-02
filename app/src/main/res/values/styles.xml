@@ -18,6 +18,13 @@
 
     <!-- Welcome主题 -->
     <style name="CAppWelcomeTheme" parent="Base.AppTheme">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowNoTitle">true</item>
     </style>
 
