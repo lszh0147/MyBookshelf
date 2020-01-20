@@ -59,15 +59,17 @@ public class DataBackup {
         Single.create((SingleOnSubscribe<Boolean>) e -> {
             long currentTime = System.currentTimeMillis();
             if (!BuildConfig.DEBUG) {
-                File file = new File(FileUtils.getSdCardPath() + File.separator + "YueDu" + File.separator + "autoSave" + File.separator + "myBookShelf.json");
+                File file = new File(FileUtils.getSdCardPath() + File.separator + "Android"+ File.separator +"AppData"+ File.separator +"YueDu" + File.separator + "autoSave" + File.separator + "myBookShelf.json");
                 if (file.exists()) {
                     if (currentTime - file.lastModified() < TimeUnit.DAYS.toMillis(1)) {
                         e.onSuccess(false);
                         return;
                     }
                 }
-                DocumentHelper.createDirIfNotExist(FileUtils.getSdCardPath(), "YueDu");
-                String dirPath = FileUtils.getSdCardPath() + File.separator + "YueDu";
+                DocumentHelper.createDirIfNotExist(FileUtils.getSdCardPath(), "Android");
+                DocumentHelper.createDirIfNotExist(FileUtils.getSdCardPath()+ File.separator + "Android", "AppData");
+                DocumentHelper.createDirIfNotExist(FileUtils.getSdCardPath()+ File.separator + "Android"+ File.separator +"AppData", "YueDu");
+                String dirPath = FileUtils.getSdCardPath() + File.separator + "Android"+ File.separator +"AppData"+ File.separator +"YueDu";
                 DocumentHelper.createDirIfNotExist(dirPath, "autoSave");
                 dirPath += File.separator + "autoSave";
                 backupConfig(dirPath);
@@ -86,8 +88,10 @@ public class DataBackup {
 
     public void run() {
         Single.create((SingleOnSubscribe<Boolean>) e -> {
-            DocumentHelper.createDirIfNotExist(FileUtils.getSdCardPath(), "YueDu");
-            String dirPath = FileUtils.getSdCardPath() + File.separator + "YueDu";
+            DocumentHelper.createDirIfNotExist(FileUtils.getSdCardPath(), "Android");
+            DocumentHelper.createDirIfNotExist(FileUtils.getSdCardPath()+ File.separator + "Android", "AppData");
+            DocumentHelper.createDirIfNotExist(FileUtils.getSdCardPath()+ File.separator + "Android"+ File.separator +"AppData", "YueDu");
+            String dirPath = FileUtils.getSdCardPath() + File.separator + "Android/AppData/YueDu";
             backupConfig(dirPath);
             backupBookShelf(dirPath);
             backupBookSource(dirPath);
@@ -135,8 +139,8 @@ public class DataBackup {
             FileHelp.deleteFile(zipFilePath);
             if (ZipUtils.zipFiles(filePaths, zipFilePath)) {
                 if (WebDavHelp.initWebDav()) {
-                    new WebDavFile(WebDavHelp.getWebDavUrl() + "YueDu").makeAsDir();
-                    String putUrl = WebDavHelp.getWebDavUrl() + "YueDu/backup" + TimeUtils.date2String(TimeUtils.getNowDate(), new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())) + ".zip";
+                    new WebDavFile(WebDavHelp.getWebDavUrl() + "Android/AppData/YueDu").makeAsDir();
+                    String putUrl = WebDavHelp.getWebDavUrl() + "Android/AppData/YueDu/backup" + TimeUtils.date2String(TimeUtils.getNowDate(), new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())) + ".zip";
                     WebDavFile webDavFile = new WebDavFile(putUrl);
                     webDavFile.upload(zipFilePath);
                 }

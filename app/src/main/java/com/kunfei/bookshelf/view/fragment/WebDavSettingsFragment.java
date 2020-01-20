@@ -159,7 +159,7 @@ public class WebDavSettingsFragment extends PreferenceFragment implements Shared
 
     public void showRestoreFiles() {
         Single.create((SingleOnSubscribe<String[]>) emitter -> {
-            List<WebDavFile> webDavFiles = new WebDavFile(WebDavHelp.getWebDavUrl() + "YueDu/").listFiles();
+            List<WebDavFile> webDavFiles = new WebDavFile(WebDavHelp.getWebDavUrl() + "Android/AppData/YueDu/").listFiles();
             Collections.reverse(webDavFiles);
             List<String> fileNames = new ArrayList<>();
             for (int i = 0; i < Math.min(webDavFiles.size(), 10); i++) {
@@ -180,7 +180,7 @@ public class WebDavSettingsFragment extends PreferenceFragment implements Shared
                             AlertDialog dialog = new AlertDialog.Builder(settingActivity)
                                     .setTitle("选择恢复文件")
                                     .setSingleChoiceItems(strings, 0, (dialogInterface, i) -> {
-                                        restore(WebDavHelp.getWebDavUrl() + "YueDu/" + strings[i]);
+                                        restore(WebDavHelp.getWebDavUrl() + "Android/AppData/YueDu/" + strings[i]);
                                         dialogInterface.dismiss();
                                     })
                                     .create();
@@ -203,7 +203,7 @@ public class WebDavSettingsFragment extends PreferenceFragment implements Shared
             WebDavFile webDavFile = new WebDavFile(url);
             String zipFilePath = FileHelp.getCachePath() + "/backup" + ".zip";
             webDavFile.download(zipFilePath, true);
-            ZipUtils.unzipFile(zipFilePath, FileUtils.getSdCardPath() + "/YueDu");
+            ZipUtils.unzipFile(zipFilePath, FileUtils.getSdCardPath() + "/Android/AppData/YueDu");
             DataRestore.getInstance().run();
             emitter.onSuccess(new Object());
         }).compose(RxUtils::toSimpleSingle)

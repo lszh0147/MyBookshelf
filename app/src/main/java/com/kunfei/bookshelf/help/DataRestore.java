@@ -34,7 +34,7 @@ public class DataRestore {
     }
 
     public Boolean run() {
-        String dirPath = FileUtils.getSdCardPath() + File.separator + "YueDu";
+        String dirPath = FileUtils.getSdCardPath() + File.separator + "Android"+ File.separator +"AppData"+ File.separator +"YueDu";
         restoreBookSource(dirPath);
         restoreBookShelf(dirPath);
         restoreSearchHistory(dirPath);
