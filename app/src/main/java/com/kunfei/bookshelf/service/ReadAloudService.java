@@ -15,7 +15,6 @@ import android.media.AudioFocusRequest;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
-import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -82,7 +81,7 @@ public class ReadAloudService extends Service {
     private Boolean pause = false;
     private List<String> contentList = new ArrayList<>();
     private int nowSpeak;
-    private int timeMinute = 0;
+    private static int timeMinute = 0;
     private boolean timerEnable = false;
     private AudioManager audioManager;
     private MediaSessionCompat mediaSessionCompat;
@@ -279,13 +278,7 @@ public class ReadAloudService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return new MyBinder();
-    }
-
-    public class MyBinder extends Binder {
-        public ReadAloudService getService() {
-            return ReadAloudService.this;
-        }
+        return null;
     }
 
     private void initTTS() {
@@ -675,18 +668,10 @@ public class ReadAloudService extends Service {
         @Override
         public void onInit(int i) {
             if (i == TextToSpeech.SUCCESS) {
-                int result = textToSpeech.setLanguage(Locale.CHINA);
-                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    mainHandler.post(() -> Toast.makeText(ReadAloudService.this, getString(R.string.tts_fix), Toast.LENGTH_SHORT).show());
-                    //先停止朗读服务方便用户设置好后的重试
-                    ReadAloudService.stop(ReadAloudService.this);
-                    //跳转到文字转语音设置界面
-                    toTTSSetting();
-                } else {
-                    textToSpeech.setOnUtteranceProgressListener(new ttsUtteranceListener());
-                    ttsInitSuccess = true;
-                    playTTS();
-                }
+                textToSpeech.setLanguage(Locale.CHINA);
+                textToSpeech.setOnUtteranceProgressListener(new ttsUtteranceListener());
+                ttsInitSuccess = true;
+                playTTS();
             } else {
                 mainHandler.post(() -> Toast.makeText(ReadAloudService.this, getString(R.string.tts_init_failed), Toast.LENGTH_SHORT).show());
                 ReadAloudService.this.stopSelf();
@@ -698,10 +683,7 @@ public class ReadAloudService extends Service {
         @Override
         public void onInit(int i) {
             if (i == TextToSpeech.SUCCESS) {
-                int result = textToSpeech_ui.setLanguage(Locale.CHINA);
-                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    mainHandler.post(() -> Toast.makeText(ReadAloudService.this, getString(R.string.tts_fix), Toast.LENGTH_SHORT).show());
-                }
+                textToSpeech_ui.setLanguage(Locale.CHINA);
             }
         }
     }
