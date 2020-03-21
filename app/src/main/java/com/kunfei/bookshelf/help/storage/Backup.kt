@@ -27,7 +27,7 @@ object Backup {
     val backupPath = MApplication.getInstance().filesDir.absolutePath + File.separator + "backup"
 
     val defaultPath by lazy {
-        FileUtils.getSdCardPath() + File.separator + "YueDu"
+        FileUtils.getSdCardPath() + File.separator + "Android"+ File.separator +"AppData"+ File.separator +"YueDu"
     }
 
     val backupFileNames by lazy {

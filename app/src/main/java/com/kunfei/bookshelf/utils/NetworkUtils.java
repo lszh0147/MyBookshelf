@@ -131,26 +131,26 @@ public class NetworkUtils {
      * Get local Ip address.
      */
     public static InetAddress getLocalIPAddress() {
-        Enumeration<NetworkInterface> enumeration = null;
-        try {
-            enumeration = NetworkInterface.getNetworkInterfaces();
-        } catch (SocketException e) {
-            e.printStackTrace();
-        }
-        if (enumeration != null) {
-            while (enumeration.hasMoreElements()) {
-                NetworkInterface nif = enumeration.nextElement();
-                Enumeration<InetAddress> inetAddresses = nif.getInetAddresses();
-                if (inetAddresses != null) {
-                    while (inetAddresses.hasMoreElements()) {
-                        InetAddress inetAddress = inetAddresses.nextElement();
-                        if (!inetAddress.isLoopbackAddress() && isIPv4Address(inetAddress.getHostAddress())) {
-                            return inetAddress;
-                        }
-                    }
-                }
-            }
-        }
+//        Enumeration<NetworkInterface> enumeration = null;
+//        try {
+//            enumeration = NetworkInterface.getNetworkInterfaces();
+//        } catch (SocketException e) {
+//            e.printStackTrace();
+//        }
+//        if (enumeration != null) {
+//            while (enumeration.hasMoreElements()) {
+//                NetworkInterface nif = enumeration.nextElement();
+//                Enumeration<InetAddress> inetAddresses = nif.getInetAddresses();
+//                if (inetAddresses != null) {
+//                    while (inetAddresses.hasMoreElements()) {
+//                        InetAddress inetAddress = inetAddresses.nextElement();
+//                        if (!inetAddress.isLoopbackAddress() && isIPv4Address(inetAddress.getHostAddress())) {
+//                            return inetAddress;
+//                        }
+//                    }
+//                }
+//            }
+//        }
         return null;
     }
 }
